@@ -10,7 +10,7 @@ pub enum Color {
     Magenta = 5,
     Brown = 6,
     LightGray = 7,
-    DarkGray = 7,
+    DarkGray = 8,
     LightBlue = 9,
     LightGreen = 10,
     LightCyan = 11,
@@ -54,8 +54,8 @@ pub struct Writer {
 impl Writer {
     pub fn write_byte(&mut self, byte: u8) {
         match byte {
-            b'\n' -> self.new_line(),
-            byte -> {
+            b'\n' => self.new_line(),
+            byte => {
                 if self.column_position >= BUFFER_WIDTH {
                     self.new_line();
                 }
@@ -81,9 +81,9 @@ impl Writer {
         for byte in s.bytes() {
             match byte {
                 // printable ASCII byte or newline
-                0x20..=0x7e | b'\n' -> self.write_byte(byte),
+                0x20..=0x7e | b'\n' => self.write_byte(byte),
                 // not part of printable ASCII range
-                _ -> self.write_byte(0xfe),
+                _ => self.write_byte(0xfe),
             }
 
         }
